@@ -1,8 +1,9 @@
 from distutils.command.upload import upload
 from pathlib import Path
 import os
+import dj_database_url
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 SECRET_KEY = 'django-insecure-@(_i(fek@m5s+c(jli3=82!#m8-dl(#xv=qm!3j2=)i$_%-)8#'
 
@@ -16,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'my_crm',
     'trucks',
@@ -31,6 +33,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -102,17 +105,21 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj-database-url
-db_from_env = dj-database-url.conf()
+
+db_from_env = dj_database_url.config()
 
 DATABASES['default'].update(db_from_env)
 
-STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = BASE_DIR / 'media' 
+MEDIA_ROOT = (
+    os.path.join(BASE_DIR, 'media'),
+)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

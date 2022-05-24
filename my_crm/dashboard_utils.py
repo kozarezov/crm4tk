@@ -13,7 +13,7 @@ class Utils:
         medians_margin = month_margin / datetime.date.today().day
         medians_gross = month_gross / datetime.date.today().day
         medians_count_done = month_count_done / datetime.date.today().day
-        medians_count_not_done = month_count_not_done / datetime.date.today().day
+        medians_count_not_done = month_count_not_done / datetime.date.today().day 
         
         percent_margin = 0
         percent_gross = 0

@@ -1,0 +1,42 @@
+.btn-group i{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+button.my-upload-btn{
+    border:           none;
+    color:            #29abe2;
+  
+    outline:          none;
+    cursor:           pointer;
+}
+
+div.dt-buttons {
+    clear: both;
+}
+
+.dispatcher_icon .material-icons-outlined {
+    color: red
+}
+
+.table-responsive {
+    font-size: 12px;
+}
+
+::-webkit-scrollbar {
+    width: .6em;
+    height: .6em; 
+  }
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb {
+    overflow:visible;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.2); 
+  }
+  /* MAGIC HAPPENS HERE */
+  .scroll-bar-wrap:hover .cover-bar {
+     opacity: 0;
+    -webkit-transition: all .5s;
+  }
