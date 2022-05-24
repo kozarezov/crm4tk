@@ -1,0 +1,85 @@
+{% extends 'my_crm/menu.html' %}
+{% load static %}
+
+{% block title %}
+Настройки
+{% endblock %}
+
+{% block description %}
+<h1>Настройки</h1>
+<ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="hoaccountme" aria-selected="true">Учетная запись</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab" aria-controls="security" aria-selected="false">Пароль</button>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="settingsInputEmail" class="form-label">Email</label>
+                            {{user_form.email}}
+                        </div>
+                    </div>
+                    <div class="row m-t-lg">
+                        <div class="col-md-6">
+                            <label for="settingsInputFirstName" class="form-label">Имя</label>
+                            {{user_form.first_name}}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="settingsInputLastName" class="form-label">Фамилия</label>
+                            {{user_form.last_name}}
+                        </div>
+                    </div>
+                    <div class="row m-t-lg">
+                        <div class="col-12">
+                            <div class="form-check form-switch">
+                                {{ profile_form.theme }}
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Использовать темную тему оформления</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-lg">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="security" role="tabpanel" aria-labelledby="security-tab">
+           {% comment %}  <div class="card">
+                <div class="card-body">
+                    <div class="row m-t-xxl">
+                        <div class="col-md-6">
+                            <label for="settingsNewPassword" class="form-label">New Password</label>
+                            <input type="password" class="form-control" aria-describedby="settingsNewPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                    </div>
+                    <div class="row m-t-xxl">
+                        <div class="col-md-6">
+                            <label for="settingsConfirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" aria-describedby="settingsConfirmPassword" placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+                        </div>
+                    </div>
+                    <div class="row m-t-xxl">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <h5>Этот раздел находится в разработке</h5>
+        </div>
+    </div>
+</form>
+{% endblock %}

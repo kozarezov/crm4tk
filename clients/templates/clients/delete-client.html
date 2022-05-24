@@ -1,0 +1,14 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Удалить партнера
+{% endblock %}
+
+{% block description %}
+        <h1><i class="material-icons-two-tone">handshake</i>Удалить партнера {{clients.company_name}}?</h1><br>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger"><i class="material-icons">delete_outline</i>Удалить</button>
+            <a href="{% url 'clients' %}" class="btn btn-primary"><i class="material-icons">arrow_back</i>Назад</a>
+        </form>
+{% endblock %}

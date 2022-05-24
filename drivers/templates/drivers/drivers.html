@@ -1,0 +1,46 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Водители
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">person</i>Водители</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table id="datatable3" class="display nowrap table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Паспорт</th>
+                    <th>Прописка</th>
+                    <th>Телефон</th>
+                    <th>Элементы управления</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in all_drivers %}
+                    <tr>
+                        <td>{{ el.name }}</td>
+                        <td>{{ el.passport_numbers }} {{ el.passport }}</td>
+                        <td>{{ el.registration }}</td>
+                        <td>{{ el.phone }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="contol">
+                                <a href="{% url 'drivers-detail' el.id %}" class="btn btn-light btn-style-light" title = "Открыть"><i class="material-icons">visibility</i></a>
+                                <a href="{% url 'drivers-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                <a href="{% url 'drivers-delete' el.id %}" class="btn btn-light btn-style-light" title = "Удалить"><i class="material-icons">delete</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_driver' %}" class="btn btn-primary" title = "Создать"><i class="material-icons">add</i>Добавить</a>
+        <a href="{% url 'drivers-upload' %}" class="btn btn-success" title = "Создать"><i class="material-icons">upload</i>Импорт (xls)</a>
+    </div>
+</div>
+{% endblock %}

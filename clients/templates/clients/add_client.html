@@ -1,0 +1,87 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Добавить партнера
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">handshake</i>Добавить партнера</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="col-md-6">
+        <label for="input_company_name" class="form-label">Наименование</label>
+        {{form.company_name}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_contract_data" class="form-label">Номер и дата договора</label>
+        {{form.contract_data}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_inn" class="form-label">ИНН</label>
+        {{form.inn}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_juridical_address" class="form-label">Юридический Адрес</label>
+        {{form.juridical_address}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_post_address" class="form-label">Фактический Адрес</label>
+        {{form.post_address}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_kpp" class="form-label">КПП</label>
+        {{form.kpp}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_ogrn" class="form-label">ОГРН</label>
+        {{form.ogrn}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_bik" class="form-label">БИК</label>
+        {{form.bik}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_payment_score" class="form-label">Расчетный счет</label>
+        {{form.payment_score}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_correspondent_score" class="form-label">Корреспондентский счет</label>
+        {{form.correspondent_score}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_bank_name" class="form-label">Наименование банка</label>
+        {{form.bank_name}}
+    </div>
+    <div class="col-md-3">
+        <label for="inputMask4" class="form-label">Электронная почта</label>
+        {{form.email}}
+    </div>
+    <div class="col-md-3">
+        <label for="inputMask3" class="form-label">Телефон</label>
+        {{form.phone}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_contact_person" class="form-label">Контактное лицо</label>
+        {{form.contact_person}}
+    </div>
+    <div class="col-12">
+        <div class="form-check form-switch">
+            {{form.client_bool}}
+            <label class="form-check-label" for="flexSwitchCheckDefault">Является клиентом</label>
+        </div>
+        <div class="form-check form-switch">
+            {{form.subclient_bool}}
+            <label class="form-check-label" for="flexSwitchCheckDefault1">Является перевозчиком</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

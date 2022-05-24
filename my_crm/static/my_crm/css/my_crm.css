@@ -1,0 +1,108 @@
+body {
+    background: #2c2c2c;
+}
+
+aside {
+    float: left;
+    background: #181818;
+    width: 15%;
+    padding: 1.5%;
+    height: 100vh;
+    color: #ffff;
+    border-right: 5px solid #4d4d4d;
+    font-style: normal;
+}
+
+aside img {
+    width: 150px;
+    float: left;
+    margin-left: 20px;
+}
+
+aside .logo {
+    font-size: 40px;
+    margin-left: 10px;
+    font-weight: bold;
+    position: relative;
+    top: -5px;
+}
+
+aside h3 {
+    margin-top: 50px;
+    font-size: 28px;
+}
+
+aside ul {list-style: none}
+aside ul li {
+    color: #ffff;
+    display: block;
+    margin-top: 20px;
+    transition: transform .6s ease;
+    font-style: normal;
+}
+
+aside ul li:hover, aside ul a:hover {
+    color: #eb5959;
+    text-decoration: none;
+    transform: scale(1.15);
+}
+
+main .feature {
+    float: left;
+    color: #ffff;
+    margin-top: 10px;
+    text-align: center;
+    width: 85%;
+}
+
+main .feature h1 {font-size: 50px; margin: 5px auto}
+main .feature p {max-width: 400px; margin: 20px auto; top: 100px;}
+
+.form-control {
+    float: left;
+    clear: both;
+    width: 400px;
+    margin: 5px 36%;
+    text-align: left;
+}
+
+.custom-control {
+    float: left;
+    clear: both;
+    width: 400px;
+    margin: 7px 36%;
+    text-align: left;
+}
+
+.form-control.my1 {
+    float: left;
+    clear: both;
+    width: 400px;
+    margin: 5px;
+    text-align: left;
+}
+
+.table-dark.my1{
+    font-size: 11px;
+    text-align: center;
+    height: 20px;
+    vertical-align: top;
+}
+
+.table-dark.my1 td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.choices__item {
+    text-align: left;
+    color: black;
+}
+
+.choices__list--dropdown .choices__item--selectable::after {
+    display: none;
+}
+
+.btn.btn-outline-primary.my {
+    display: ;
+}

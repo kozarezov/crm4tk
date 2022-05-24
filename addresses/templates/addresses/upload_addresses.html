@@ -1,0 +1,46 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Импорт адреса
+{% endblock %}
+
+{% block description %}
+        <h1><i class="material-icons-two-tone">location_on</i>Импорт адреса</h1><br>
+        <div class="card widget widget-files">
+            <div class="card-header">
+                <h5 class="card-title">Прикрепить файлы</h5>
+            </div>
+            <div class="card-body">
+                <div class="widget-files-continer">
+                    <ul class="widget-files-list list-unstyled">
+                        <form method="post" class="md-form" enctype="multipart/form-data" id="myform">
+                            {% csrf_token %}
+                            <li class="widget-files-list-item">
+                                <span class="widget-files-list-item-icon">
+                                    <i class="material-icons-outlined">insert_drive_file</i>
+                                </span>
+                                <span class="widget-files-list-item-content">
+                                    <input type="file" name="file" class='form-control', id='customFileLangHTML'>
+                                </span>
+                                <a href="#" type="submit" onclick="document.forms['myform'].submit();" class="widget-files-list-item-download-btn">
+                                    <i class="material-icons-outlined">
+                                        upload
+                                    </i>
+                                </a>
+                            </li>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+{% block content %}
+{% for message in messages %}
+    {% if forloop.last %}
+        {% if 'error' in message.tags %}
+            <span>{{ message }}</span>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+{% endblock %}

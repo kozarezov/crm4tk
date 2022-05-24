@@ -1,0 +1,200 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Незавершенные рейсы
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">fmd_bad</i> Незавершенные рейсы</h2>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Позвонить</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Звонили сегодня</button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive " style="overflow:auto;">
+                    <table id="datatable5" class="display nowrap table-hover" style="width: 100%; ">
+                        <thead>
+                            <tr>
+                                <th>id &nbsp;</th>
+                                <th>Статус &nbsp;</th>
+                                <th>Логист  &nbsp;</th>
+                                <th>Дата рейса</th>
+                                <th>Точка погрузки</th>
+                                <th>Точка выгрузки</th>
+                                <th>Дата погрузки план   &nbsp;</th>
+                                <th>Дата выгрузки план   &nbsp;</th>
+                                <th>Клиент</th>
+                                <th>Перевозчик</th>
+                                <th>Машина</th>
+                                <th>Водитель</th>
+                                <th>Телефон</th>
+                                <th>Элементы управления  &nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for el in all_orders %}
+                                {% if not el.today_bool %}
+                                    <tr>
+                                        <td>{{ el.id }}</td>
+                                        {% if el.problem_bool %}
+                                            <td><span class="badge badge-danger">{{ el.status_dispatcher }}</span></td>
+                                        {% else %}
+                                            <td><span class="badge badge-info">{{ el.status_dispatcher }}</span></td>
+                                        {% endif %}
+                                        <td>{{ el.logist }}</td>
+                                        <td>{{ el.date }}</td>
+                                        <td>
+                                            {{ el.drop_on }}
+                                            {% if el.drop_on_plus %}
+                                                / {{ el.drop_on_plus }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ el.drop_off }}
+                                            {% if el.drop_off_plus %}
+                                                / {{ el.drop_off_plus }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ el.date_on|date:'d.m.Y H:i' }}</td>
+                                        <td>{{ el.date_off|date:'d.m.Y H:i' }}</td>
+                                        <td>{{ el.client }}</td>
+                                        <td>{{ el.subclient }}</td>
+                                        <td>{{ el.truck }}</td>
+                                        <td>{{ el.driver }}</td>
+                                        <td>{{ el.driver.phone }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="contol">
+                                                <div class="btn-group dropdown" >
+                                                    <a href="#" type="button" class="btn btn-light btn-style-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-icons">view_list</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" >
+                                                        <li>
+                                                            <a href="{% url 'dispatcher-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'orders-clone' el.id %}" class="btn btn-light btn-style-light" title = "Создать по образцу"><i class="material-icons">replay</i></a>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="{% url 'client-document1' el.id %}">Заявка с клиентом</a></li>
+                                                        <li><a class="dropdown-item" href="{% url 'client-document' el.id %}">Договор-заявка с клиентом</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="{% url 'orders-document' el.id %}">Заявка с перевозчиком</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}  
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive " style="overflow:auto;">
+                    <table id="datatable3" class="display nowrap table-hover" style="width: 100%; ">
+                        <thead>
+                            <tr>
+                                <th>id &nbsp;</th>
+                                <th>Статус &nbsp;</th>
+                                <th>Логист  &nbsp;</th>
+                                <th>Дата рейса</th>
+                                <th>Точка погрузки</th>
+                                <th>Точка выгрузки</th>
+                                <th>Дата погрузки план   &nbsp;</th>
+                                <th>Дата выгрузки план   &nbsp;</th>
+                                <th>Клиент</th>
+                                <th>Перевозчик</th>
+                                <th>Машина</th>
+                                <th>Водитель</th>
+                                <th>Телефон</th>
+                                <th>Элементы управления  &nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for el in all_orders %}
+                                {% if el.today_bool %}
+                                    <tr>
+                                        <td>{{ el.id }}</td>
+                                        {% if el.problem_bool %}
+                                            <td><span class="badge badge-danger">{{ el.status_dispatcher }}</span></td>
+                                        {% else %}
+                                            <td><span class="badge badge-info">{{ el.status_dispatcher }}</span></td>
+                                        {% endif %}
+                                        <td>{{ el.logist }}</td>
+                                        <td>{{ el.date }}</td>
+                                        <td>
+                                            {{ el.drop_on }}
+                                            {% if el.drop_on_plus %}
+                                                / {{ el.drop_on_plus }}
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {{ el.drop_off }}
+                                            {% if el.drop_off_plus %}
+                                                / {{ el.drop_off_plus }}
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ el.date_on|date:'d.m.Y H:i' }}</td>
+                                        <td>{{ el.date_off|date:'d.m.Y H:i' }}</td>
+                                        <td>{{ el.client }}</td>
+                                        <td>{{ el.subclient }}</td>
+                                        <td>{{ el.truck }}</td>
+                                        <td>{{ el.driver }}</td>
+                                        <td>{{ el.driver.phone }}</td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="contol">
+                                                <div class="btn-group dropdown" >
+                                                    <a href="#" type="button" class="btn btn-light btn-style-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="material-icons">view_list</i>
+                                                    </a>
+                                                    <ul class="dropdown-menu" >
+                                                        <li>
+                                                            <a href="{% url 'dispatcher-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'orders-clone' el.id %}" class="btn btn-light btn-style-light" title = "Создать по образцу"><i class="material-icons">replay</i></a>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="{% url 'client-document1' el.id %}">Заявка с клиентом</a></li>
+                                                        <li><a class="dropdown-item" href="{% url 'client-document' el.id %}">Договор-заявка с клиентом</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="{% url 'orders-document' el.id %}">Заявка с перевозчиком</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}  
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

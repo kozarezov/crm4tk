@@ -1,0 +1,32 @@
+{% extends 'my_crm/menu.html' %}
+{% load static %}
+
+{% block title %}
+Файловое хранилище
+{% endblock %}
+
+{% block description %}
+<h1><i class="material-icons-two-tone">cloud_queue</i> Файловое хранилище</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% for el in all_documents %}
+        <div class="col-xxl-6">
+            <div class="card file-manager-recent-item">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <i class="material-icons-outlined align-middle m-r-sm">description</i>
+                        <a href="#" class="file-manager-recent-item-title flex-fill"> {{el.file_name}} </a>
+                        <span class="p-h-sm text-muted">{{el.document.name}}</span>
+                        <a href="{{el.document.url}}" class="dropdown-toggle file-manager-recent-file-actions" id="file-manager-recent-1" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="file-manager-recent-1">
+                            <li><a class="dropdown-item" href="{{el.document.url}}">Скачать</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

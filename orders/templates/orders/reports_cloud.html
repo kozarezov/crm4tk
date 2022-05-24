@@ -1,0 +1,86 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Облачный реестр
+{% endblock %}
+
+{% block description %}
+<h2>Облачный реестр</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table id="datatable3" class="display nowrap table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Ответственный со стороны ОТЛ</th>  
+                    <th>Регион FTL</th>
+                    <th>Проект</th> 
+                    <th>ИНН Клиента</th>
+                    <th>Территориальный Банк </th>
+                    <th>Ответственный со стороны Продаж </th>
+                    <th>Дата загрузки по Заявке План</th>
+                    <th>Время загрузки по заявке (план)</th>
+                    <th>Дата загрузки ФАКТ</th>
+                    <th>Время загрузки по заявке (факт)</th>
+                    <th>Дата выгрузки по Заявке План</th>
+                    <th>Время выгрузки по заявке (план)</th>
+                    <th>Дата выгрузки ФАКТ</th>
+                    <th>Время выгрузки по заявке (факт)</th>
+                    <th>Объем груза </th>
+                    <th>Адрес подачи автотранспорта </th>
+                    <th>Адрес доставки</th>
+                    <th>ФИО водителя </th>
+                    <th></th>
+                    <th>Стоимость  Перевозчика  с НДС </th>
+                    <th>Стоимость для Клиента  с НДС </th>
+                    <th>Перевозчик </th>
+                    <th>% маржа </th>
+                    <th>дельта </th>
+                    <th>id </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in all_orders %}
+                    <tr>
+                        <td>{{ el.logist }}</td>
+                        <td>ЮФО</td>
+                        <td>{{ el.client }}</td>
+                        <td>{{ el.client.inn }}</td>
+                        <td>Юго-западный банк</td>
+						<td>{{ el.sale_manager }}</td>
+						<td>{{ el.date_on|date:'d.m.Y' }}</td>
+						<td>{{ el.date_on|date:'H:i' }}</td>
+						<td>{{ el.date_on_fact|date:'d.m.Y' }}</td>
+						<td>{{ el.date_on_fact|date:'H:i' }}</td>
+						<td>{{ el.date_off|date:'d.m.Y' }}</td>
+						<td>{{ el.date_off|date:'H:i' }}</td>
+						<td>{{ el.date_off_fact|date:'d.m.Y' }}</td>
+						<td>{{ el.date_off_fact|date:'H:i' }}</td>
+						<td>20 т</td>
+						<td>{{ el.drop_on.city }}, {{ el.drop_on.address }}
+                            {% if el.drop_on_plus %}
+                                / {{ el.drop_on_plus.city }} {{ el.drop_on_plus.address }}
+                            {% endif %}
+                        </td>
+						<td>{{ el.drop_off.city }}, {{ el.drop_off.address }}
+                            {% if el.drop_off_plus %}
+                                / {{ el.drop_off_plus.city }} {{ el.drop_off_plus.address }}
+                            {% endif %}
+                        </td>
+						<td>{{ el.driver }} {{ el.truck}} {{ el.truck.trailer_number}}</td>
+						<td></td>
+						<td>{{ el.get_subclient_cost }}</td>
+						<td>{{ el.get_client_cost }}</td>
+                        <td>{{ el.subclient }}</td>
+                        <td>{{ el.margin_percent }}%</td>
+                        <td>{{ el.margin }}</td>
+                        <td>{{ el.id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

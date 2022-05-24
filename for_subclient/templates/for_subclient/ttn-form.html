@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="СберЛогистика">
+    <meta name="keywords" content="admin,dashboard">
+    <meta name="author" content="stacks">
+    <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Формирование ТТН</title>
+
+    <!-- Styles -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/perfectscroll/perfect-scrollbar.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/pace/pace.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/highlight/styles/github-gist.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/datatables/datatables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/select2/css/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/plugins/flatpickr/flatpickr.min.css' %}" rel="stylesheet">
+    <link href="//cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link href="//cdn.datatables.net/buttons/2.2.2/css/buttons.bootstrap5.min.css" rel="stylesheet">
+
+	<link href="{% static 'my_crm/css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'my_crm/css/custom.css' %}" rel="stylesheet">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'my_crm/images/logo-sber.png' %}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'my_crm/images/logo-sber.png' %}" />
+</head>
+
+<body>
+	<div class="app menu-off-canvas align-content-stretch d-flex flex-wrap">
+		<div class="app-container">
+			<div class="app-content">
+				<div class="content-wrapper">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col">
+								<div class="page-description">
+									<h2>Формирование ТН (Внимание! Раздел находится в разработке)</h2>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<form method="post" class="row g-3 needs-validation" novalidate>
+									{% csrf_token %}
+									<div class="col-md-1">
+										<label for="inputMask1" class="form-label">Дата</label>
+										{{form.date}}
+									</div>
+									<div class="col-md-2">
+										<label for="input_order_number" class="form-label">Номер заявки клиента</label>
+										{{form.order_number}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_client" class="form-label">Клиент</label>
+										{{form.client}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_client_data" class="form-label">ИНН/Адрес Клиента</label>
+										{{form.client_data}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_cargoholder" class="form-label">Грузоотправитель</label>
+										{{form.cargoholder}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_cargoholder_data" class="form-label">ИНН/Адрес Грузоотправителя</label>
+										{{form.cargoholder_data}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_drop_on" class="form-label">Адрес погрузки</label>
+										{{form.drop_on}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_cargorecipient" class="form-label">Грузополучатель</label>
+										{{form.cargorecipient}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_cargorecipient_data" class="form-label">ИНН/Адрес Грузополучателя</label>
+										{{form.cargorecipient_data}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_drop_off" class="form-label">Адрес выгрузки</label>
+										{{form.drop_off}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_subclient" class="form-label">Перевозчик</label>
+										{{form.subclient}}
+									</div>
+									<div class="col-md-4">
+										<label for="input_subclient_data" class="form-label">ИНН/Адрес Перевозчика</label>
+										{{form.subclient_data}}
+									</div>
+									<div class="col-md-2">
+										<label for="input_driver" class="form-label">ФИО Водителя</label>
+										{{form.driver}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_truck" class="form-label">Тягач</label>
+										{{form.truck}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_model" class="form-label">Модель</label>
+										{{form.model}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_trailer" class="form-label">Прицеп</label>
+										{{form.trailer}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_cargo" class="form-label">Груз</label>
+										{{form.cargo}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_pallet" class="form-label">Паллет</label>
+										{{form.pallet}}
+									</div>
+									<div class="col-md-1">
+										<label for="input_weight" class="form-label">Вес</label>
+										{{form.weight}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_subclient_contract" class="form-label">Номер договора с подрядчиком</label>
+										{{form.subclient_contract}}
+									</div>
+									<div class="col-md-3">
+										<label for="input_client_contract" class="form-label">Номер договора с клиентом</label>
+										{{form.client_contract}}
+									</div>
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сформировать PDF</button>
+									</div>
+									<div class="col-12">
+										<button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сформировать XLS</button>
+									</div>
+									<span>{{ form.error }}</span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	
+
+
+
+
+
+	
+
+
+	<script src="{% static 'my_crm/plugins/jquery/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/bootstrap/js/popper.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/perfectscroll/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/pace/pace.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/highlight/highlight.pack.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/select2/js/select2.full.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/datatables/datatables.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/input-mask/jquery.inputmask.min.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/flatpickr/flatpickr.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/apexcharts/apexcharts.js' %}"></script>
+    <script src="{% static 'my_crm/plugins/html2pdf/html2pdf.bundle.min.js' %}"></script>
+    <script src="//cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="{% static 'my_crm/js/main.min.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/datatables.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/select2.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/input-mask.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/datepickers.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/dashboard.js' %}"></script>
+    <script src="{% static 'my_crm/js/pages/charts-apex.js' %}"></script>
+    <script src="{% static 'my_crm/js/custom.js' %}"></script>
+	<script>
+		function foo1() {
+			$("#output").text(document.getElementById("input").value);
+			$("#output1").text(document.getElementById("input1").value);
+		}
+	</script>
+
+</body>
+</html>

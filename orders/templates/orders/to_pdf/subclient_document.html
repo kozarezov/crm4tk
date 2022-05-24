@@ -1,0 +1,217 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка №{{ orders.id }}</title>
+	<style type="text/css">
+		@page { size: A4; margin: 1cm; }
+		@font-face { font-family: Arial; src: url({% static 'my_crm/fonts/arial.ttf' %});}
+		body { font-family: Arial;}
+		table {
+			padding: 1px;
+			padding-top: 2px;
+			margin: 1px;
+			width: 1000;
+		}
+		.non_border {
+			border: 0px;
+			width: 10%;
+		}
+		p {
+			padding: 0;
+			margin: 0.2;
+		}
+		.container {
+			position: relative;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		img {
+			width: 150px;
+			height: 150px;
+			position: absolute;
+  			z-index: 20;
+		}
+		
+		.container .content {
+			position: absolute;
+			width: 100%;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+<h2>Исполнитель: {{ orders.subclient }}</h2>
+<h2>Клиент: ООО "Сберлогистика"</h2>
+<h3>Предмет заявки: Заявка №{{ orders.id }} к договору оказания транспортных услуг <b>{{ orders.subclient.contract_data }}</b></h3>
+
+<table border="1" style="border-collapse:collapse;">
+	<tbody>
+		<tr>
+			<td rowspan="5">Загрузка и отправитель</td>
+			<td><p>Адрес: </p></td>
+			<td><p>
+				{% if orders.drop_on_plus %}
+					1. {{ orders.drop_on.city }} {{ orders.drop_on.address }}
+					<br>2. {{ orders.drop_on_plus.city }} {{ orders.drop_on_plus.address }}
+				{% else %}
+					{{ orders.drop_on.city }} {{ orders.drop_on.address }}
+				{% endif %}
+			</p></td>
+		</tr>
+		<tr>
+			<td><p>Дата/Время: </p></td>
+			<td><p>{{ orders.date_on }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Наименование склада:</p></td>
+			<td><p>-</p></td>
+		</tr>
+		<tr>
+			<td><p>Компания:</p></td>
+			<td><p>{{ orders.client }} {{ orders.client.juridical_address }} ИНН:{{ orders.client.inn }}</p></td>
+		</tr>
+		<tr>
+			<td><p>ФИО/Номер телефона::</p></td>
+			<td><p>{{ orders.drop_on.contact_person }} {{ orders.drop_on.phone }}</p></td>
+		</tr>
+		<tr>
+			<td rowspan="5">Выгрузка и получатель</td>
+			<td><p>Адрес: </p></td>
+			<td><p>
+				{% if orders.drop_off_plus %}
+					1. {{ orders.drop_off.city }} {{ orders.drop_off.address }}
+					<br>2. {{ orders.drop_off_plus.city }} {{ orders.drop_off_plus.address }}
+				{% else %}
+					{{ orders.drop_off.city }} {{ orders.drop_off.address }}
+				{% endif %}
+			</p></td>
+		</tr>
+		<tr>
+			<td><p>Дата/Время: </p></td>
+			<td><p>{{ orders.date_off }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Наименование склада:</p></td>
+			<td><p>-</p></td>
+		</tr>
+		<tr>
+			<td><p>Компания:</p></td>
+			<td><p>{{ orders.client }} {{ orders.client.juridical_address }} ИНН:{{ orders.client.inn }}</p></td>
+		</tr>
+		<tr>
+			<td><p>ФИО/Номер телефона::</p></td>
+			<td><p>{{ orders.drop_off.contact_person }} {{ orders.drop_off.phone }}</p></td>
+		</tr>
+		<tr>
+			<td rowspan="6">Груз</td>
+			<td><p>Наименование:</p></td>
+			<td><p>{{ orders.cargo }} </p></td>
+		</tr>
+		<tr>
+			<td><p>Требуемая температура:</p></td>
+			<td><p>Согласно ТТН</p></td>
+		</tr>
+		<tr>
+			<td><p>Вид упаковки:</p></td>
+			<td><p>Согласно ТТН</p></td>
+		</tr>
+		<tr>
+			<td><p>Количество мест:</p></td>
+			<td><p>{{ orders.pallet }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Вес-кг:</p></td>
+			<td><p>до 20тонн</p></td>
+		</tr>
+		<tr>
+			<td><p>Объем-м3:</p></td>
+			<td><p>Согласно ТТН</p></td>
+		</tr>
+		<tr>
+			<td rowspan="3">Транспорт</td>
+			<td><p>Тип транспорта: </p></td>
+			<td><p>{{ orders.truck.type }} {{ orders.truck.capacity }} {{ orders.required_info }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Марка: </p></td>
+			<td><p>{{ orders.truck.brand }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Регистрационный номер: </p></td>
+			<td><p>{{ orders.truck }} {{ orders.truck.trailer_number }}</p></td>
+		</tr>
+		<tr>
+			<td rowspan="4">Водитель</td>
+			<td><p>ФИО: </p></td>
+			<td><p>{{ orders.driver.name }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Паспортные данные:</p></td>
+			<td><p>Серия/Номер: {{ orders.driver.passport_numbers }} Выдан:{{ orders.driver.passport }} Дата выдачи:{{ orders.driver.passport_date }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Водительское удостоверение:</p></td>
+			<td><p>{{ orders.driver.driver_license }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Контактный телефон:</p></td>
+			<td><p>{{ orders.driver.phone }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Стоимость</p></td>
+			<td colspan="2"><p>{{ orders.subclient_cost }} 
+			{% if 'ИП' in orders.subclient.company_name %}
+				без НДС
+			{% else %}
+				с НДС
+			{% endif %}</p>
+			</td>
+		</tr>
+		<tr>
+			<td><p>Условие оплаты</p></td>
+			<td colspan="2"><p>Согласно условиям договора {{ orders.subclient.contract_data }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Доп. условия:</p></td>
+			<td colspan="2"><p></p></td>
+		</tr>
+	</tbody>
+</table>
+
+<table border="1" style="border-collapse:collapse;">
+	<tbody>
+		<tr>
+			<td>
+				<div class="container">
+					<div class="content">
+						<p>Клиент: ООО "Сберлогистика <br>
+						119334, г. Москва, ул. Вавилова, д.24, корп.1, пом ком ХХIХ/3
+						ИНН/КПП: 7736322345/ 773601001
+						ОГРН: 1197746348458
+						Расчетный счет: 40702810100020001287
+						Корреспондентский счет: 30101810400000000225 в ГУ Банка России по ЦФО
+						БИК: 044525225 ПАО Сбербанк 
+						тел./факс: 8 800 100 72 69, https://sberlogistics.ru/</p>
+					</div>
+				</div>
+			</td>
+			<td><p>Исполнитель: {{ orders.subclient }}<br>
+				{{ orders.subclient.juridical_address }} ИНН/КПП: {{ orders.subclient.inn }}/ {{ orders.subclient.kpp }} 
+				ОГРН: {{ orders.subclient.ogrn }} Расчетный счет: {{ orders.subclient.payment_score }}
+				Корреспондентский счет: {{ orders.subclient.correspondent_score }} 
+				БИК: {{ orders.subclient.bik }} {{ orders.subclient.bank_name }}
+				тел./факс: {{ orders.subclient.phone }}</p></td>
+		</tr>
+		
+	</tbody>
+</table>
+
+<img src={% static 'my_crm/images/stamp-sbl-3.png' %}>
+
+</body>
+</html>

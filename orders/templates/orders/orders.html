@@ -1,0 +1,97 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Выполненный рейсы
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">done_outline</i>Выполненный рейсы</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive" style="overflow:auto;">
+            <table id="datatable5" class="display nowrap table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>id &nbsp;</th>
+                        <th>Дата</th>
+                        <th>Точка погрузки</th>
+                        <th>Точка выгрузки</th>
+                        <th>Дата погрузки</th>
+                        <th>Дата выгрузки</th>
+                        <th>Клиент</th>
+                        <th>Ставка Клиент  &nbsp;</th>
+                        <th>Перевозчик</th>
+                        <th>Машина</th>
+                        <th>Водитель</th>
+                        <th>Ставка Перевоз  &nbsp;</th>
+                        <th>Логист</th>
+                        <th>Элементы управления</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for el in all_orders %}
+                        <tr>
+                            <td>{{ el.id }}</td>
+                            <td>{{ el.date}}</td>
+                            <td>
+                                {{ el.drop_on }}
+                                {% if el.drop_on_plus %}
+                                    / {{ el.drop_on_plus }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ el.drop_off }}
+                                {% if el.drop_off_plus %}
+                                    / {{ el.drop_off_plus }}
+                                {% endif %}
+                            </td>
+                            <td>{{ el.date_on|date:'d.m.Y H:i' }}</td>
+                            <td>{{ el.date_off|date:'d.m.Y H:i' }}</td>
+                            <td>{{ el.client }}</td>
+                            <td>{{ el.client_cost }}</td>
+                            <td>{{ el.subclient }}</td>
+                            <td>{{ el.truck }}</td>
+                            <td>{{ el.driver }}</td>
+                            <td>{{ el.subclient_cost }}</td>
+                            <td>{{ el.logist }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="contol">
+                                    <div class="btn-group dropdown">
+                                        <a href="#" type="button" class="btn btn-light btn-style-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">view_list</i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                {% for do in el.docflow.all %}
+                                                    <a href="{% url 'orders-detail' do.id %}" class="btn btn-light btn-style-light" title = "Открыть"><i class="material-icons">visibility</i></a>
+                                                {% endfor %}
+                                            <li>
+                                                <a href="{% url 'orders-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'orders-clone' el.id %}" class="btn btn-light btn-style-light" title = "Создать по образцу"><i class="material-icons">replay</i></a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="{% url 'client-document1' el.id %}">Заявка с клиентом</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'client-document' el.id %}">Договор-заявка с клиентом</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="{% url 'orders-document' el.id %}">Заявка с перевозчиком</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

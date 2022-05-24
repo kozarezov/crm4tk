@@ -1,0 +1,80 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Назначить водителя и машину
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">person</i> + <i class="material-icons-two-tone">local_shipping</i> Назначить водителя и машину на рейс {{ object.id }}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="display nowrap" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>id &nbsp;</th>
+                    <th>Дата</th>
+                    <th>Точка погрузки</th>
+                    <th>Точка выгрузки</th>
+                    <th>Дата погрузки</th>
+                    <th>Дата выгрузки</th>
+                    <th>Клиент</th>
+                    <th>Ставка Клиент  &nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.id }}</td>
+                    <td>{{ object.date}}</td>
+                    <td>{{ object.drop_on }}</td>
+                    <td>{{ object.drop_off }}</td>
+                    <td>{{ object.date_on|date:'d.m.Y H:i' }}</td>
+                    <td>{{ object.date_off|date:'d.m.Y H:i' }}</td>
+                    <td>{{ object.client }}</td>
+                    <td>{{ object.client_cost }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form method="post" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-3">
+        <label for="input_subclient" class="form-label">Перевозчик</label>
+        {{form.subclient}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_truck" class="form-label">Машина</label>
+        {{form.truck}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_driver" class="form-label">Водитель</label>
+        {{form.driver}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_subclient_cost" class="form-label">Ставка Перевозчика</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">₽</span>
+            {{form.subclient_cost}}
+            <span class="input-group-text">с НДС</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="input_logist" class="form-label">Логист</label>
+        {{form.logist}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_logist" class="form-label">Статус</label>
+        {{form.status}}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

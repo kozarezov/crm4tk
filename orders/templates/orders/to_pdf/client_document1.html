@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка №{{ orders.id }}</title>
+	<style type="text/css">
+		@page { size: A4; margin: 1cm; }
+		@font-face { font-family: Arial; src: url({% static 'my_crm/fonts/arial.ttf' %});}
+		body { font-family: Arial;}
+		table {
+			padding: 3px;
+			width: 900;
+		}
+		.non_border {
+			border: 0px;
+			width: 10%;
+		}
+		p {
+			padding: 0;
+			margin: 0.2;
+		}
+		.container {
+			position: relative;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		img {
+			width: 150px;
+			height: 150px;
+		}
+		
+		.container .content {
+			position: absolute;
+			width: 100%;
+			padding: 0;
+		}
+	</style>
+</head>
+<body>
+<h2 style="text-align: center;">ЗАЯВКА №{{ orders.order_number }} от {{ orders.date }} на перевозку груза автомобильным транспортом</h2>
+
+<table border="1" style="border-collapse:collapse;">
+	<tbody>
+		<tr>
+			<td><p>Заказчик (тел., e-mail)</p></td>
+			<td><p>{{ orders.client }} {{ orders.client.juridical_address }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Грузоотправитель (ИНН/КПП)</p></td>
+			<td><p>{{ orders.drop_on.client }} ИНН:{{ orders.drop_on.client.inn }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Грузополучатель (ИНН/КПП)</p></td>
+			<td><p>{{ orders.drop_off.client }} ИНН:{{ orders.drop_off.client.inn }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Факт. адрес загрузки</p></td>
+			<td><p>
+				{% if orders.drop_on_plus %}
+					1. {{ orders.drop_on.city }} {{ orders.drop_on.address }}
+					<br>2. {{ orders.drop_on_plus.city }} {{ orders.drop_on_plus.address }}
+				{% else %}
+					{{ orders.drop_on.city }} {{ orders.drop_on.address }}
+				{% endif %}</p></td>
+			</p></td>
+		</tr>
+		<tr>
+			<td><p>Дата загрузки</p></td>
+			<td><p>{{ orders.date_on }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Конт. лицо, тел. грузоотправителя</p></td>
+			<td><p>{{ orders.drop_on.contact_person }} {{ orders.drop_on.phone }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Факт. адрес разгрузки</p></td>
+			<td><p>
+				{% if orders.drop_off_plus %}
+					1. {{ orders.drop_off.city }} {{ orders.drop_off.address }}
+					<br>2. {{ orders.drop_off_plus.city }} {{ orders.drop_off_plus.address }}
+				{% else %}
+					{{ orders.drop_off.city }} {{ orders.drop_off.address }}
+				{% endif %}</p></td>
+		</tr>
+		<tr>
+			<td><p>Дата разгрузки</p></td>
+			<td><p>{{ orders.date_off }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Конт. лицо, тел. грузополучателя </p></td>
+			<td><p>{{ orders.drop_off.contact_person }} {{ orders.drop_off.phone }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Тип полуприцепа (грузоподъемность, способ загрузки).</p></td>
+			<td><p>{{ orders.required_type }} </p></td>
+		</tr>
+		<tr>
+			<td><p>Характер груза</p></td>
+			<td><p>{{ orders.cargo }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Дополнительные условия, особые отметки</p></td>
+			<td><p>Фактический перевозчик:{{ orders.subclient }} ИНН:{{ orders.subclient.inn }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Объявленная стоимость груза</p></td>
+			<td><p>-</p></td>
+		</tr>
+		<tr>
+			<td><p>Стоимость услуг перевозчика (в том числе НДС)</p></td>
+			<td><p>{{ orders.client_cost }} с НДС</p></td>
+		</tr>
+		<tr>
+			<td><p>Условия оплаты</p></td>
+			<td><p>постоплата</p></td>
+		</tr>
+		<tr>
+			<td><p>ФИО водителя</p></td>
+			<td><p>{{ orders.driver }} {{ orders.driver.phone }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Паспортные данные водителя</p></td>
+			<td><p>{{ orders.driver.passport_numbers }} {{ orders.driver.passport }} {{ orders.driver.passport_date }}</p></td>
+		</tr>
+		<tr>
+			<td><p>Марка гос. Номер тягача/полуприцепа</p></td>
+			<td><p>{{ orders.truck }} {{ orders.truck.trailer_number }} {{ orders.truck.brand }}</p></td>
+		</tr>
+	</tbody>
+</table><br>
+
+Условия перевозки:<br>			
+  Нормативное время для погрузки/разгрузки транспортного средства составляет __ часов.<br>
+Отказ от загрузки менее, чем за 24 часа оплачивается в размере 20% от стоимости перевозки.<br>
+Отправитель обязан передать водителю надлежаще оформленные документы для перевозки
+груза (ТН/ТТН).<br><br>
+  Факсимильная копия (электронная) копия Заявки, заверенная печатями сторон, имеет<br>
+юридическую силу и является подтверждением стороны исполнения принятых обязательств.<br>
+Данная Заявка подтверждает факт заключения договора на перевозку груза. <br><br><br>
+
+<h4 style="text-align: center;">ОБРАЗЕЦ ЗАЯВКИ <br>
+Сторонами согласован:<br></h4>
+<table >
+	<tbody>
+		<tr>
+			<td>
+				<div class="container">
+					<div class="content">
+						<p>Перевозчик:<br> ООО "Сберлогистика <br><br>____________________________</p>
+					</div>
+				</div>
+			</td>
+			<td style="text-align: right;"><p>Заказчик:<br> {{ orders.client }} <br><br>____________________________ </p></td>
+		</tr>
+		
+	</tbody>
+</table>
+
+<img style="
+	position: absolute;
+  	z-index: 20;
+  	top: 529px;
+  	left: 186px;" 
+	src={% static 'my_crm/images/stamp-sbl-3.png' %}>
+
+</body>
+</html>

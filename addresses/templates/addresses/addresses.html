@@ -1,0 +1,48 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Адреса
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">location_on</i>Адреса погрузок и выгрузок</h2>
+{% endblock %}
+
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table id="datatable3" class="display nowrap table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Адрес</th>
+                    <th>Клиент</th>
+                    <th>Контактное лицо</th>
+                    <th>Элементы управления</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in all_addresses %}
+                    <tr>
+                        <td>{{ el.name }}</td>
+                        <td>{{ el.city }}, {{ el.address }}</td>
+                        <td>{{ el.client }}</td>
+                        <td>{{ el.contact_person }} {{ el.phone }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="contol">
+                                <a href="{% url 'addresses-detail' el.id %}" class="btn btn-light btn-style-light" title = "Открыть"><i class="material-icons">visibility</i></a>
+                                <a href="{% url 'addresses-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                <a href="{% url 'addresses-delete' el.id %}" class="btn btn-light btn-style-light" title = "Удалить"><i class="material-icons">delete</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_address' %}" class="btn btn-primary" title = "Создать"><i class="material-icons">add</i>Добавить</a>
+        <a href="{% url 'addresses-upload' %}" class="btn btn-success" title = "Создать"><i class="material-icons">upload</i>Импорт (xls)</a>
+    </div>
+</div>
+
+{% endblock %}

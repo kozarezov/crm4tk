@@ -1,0 +1,25 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Клонирование рейса
+{% endblock %}
+
+{% block description %}
+    <h1>Клонирование рейса</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            Рейс №{{id_old}} успешно клонирован.
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Новый id рейса {{id}}.</h5>
+            <p class="card-text">Рейс создан со статусом 'Актуальная', все данные о ТС/Перевозчике/Водителю стерты</p>
+            <a href="{% url 'actual-orders-update' id %}" class="btn btn-primary" title = "Редактировать"><i class="material-icons">edit</i>Перейти к редактированию</a>
+        </div>
+    </div>
+    
+{% endblock %}
+
+

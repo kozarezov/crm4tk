@@ -1,0 +1,123 @@
+{% extends 'my_crm/menu.html' %}
+{% load static %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block description %}
+<h1>Главная страница </h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-4">
+        <div class="card widget widget-stats">
+            <div class="card-body">
+                <div class="widget-stats-container d-flex">
+                    <div class="widget-stats-icon widget-stats-icon-primary">
+                        <i class="material-icons-outlined">currency_ruble</i>
+                    </div>
+                    <div class="widget-stats-content flex-fill">
+                        <span class="widget-stats-title">Маржа за сегодня</span>
+                        <span class="widget-stats-amount"> {{ data.day_margin }} ₽</span>
+                        <span class="widget-stats-info">За месяц - {{ data.month_margin }} ₽</span>
+                    </div>
+                    {% if data.day_margin_percent < 8 %}
+                        <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
+                                <i class="material-icons">keyboard_arrow_down</i> {{ data.day_margin_percent }}%
+                        </div>
+                    {% else %}
+                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            <i class="material-icons">keyboard_arrow_up</i> {{ data.day_margin_percent }}%
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card widget widget-stats">
+            <div class="card-body">
+                <div class="widget-stats-container d-flex">
+                    <div class="widget-stats-icon widget-stats-icon-primary">
+                        <i class="material-icons-outlined">account_balance_wallet</i>
+                    </div>
+                    <div class="widget-stats-content flex-fill">
+                        <span class="widget-stats-title">Оборот за сегодня</span>
+                        <span class="widget-stats-amount"> {{ data.day_gross }} ₽</span>
+                        <span class="widget-stats-info">За месяц - {{ data.month_gross }} ₽</span>
+                    </div>
+                    {% if data.day_gross_percent < 0 %}
+                        <div class="widget-stats-indicator widget-stats-indicator-negative align-self-start">
+                                <i class="material-icons">keyboard_arrow_down</i> {{ data.day_gross_percent }}%
+                        </div>
+                    {% else %}
+                        <div class="widget-stats-indicator widget-stats-indicator-positive align-self-start">
+                            <i class="material-icons">keyboard_arrow_up</i> {{ data.day_gross_percent }}%
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="card widget widget-stats">
+            <div class="card-body">
+                <div class="widget-stats-container d-flex">
+                    <div class="widget-stats-icon widget-stats-icon-primary">
+                        <i class="material-icons-outlined">task_alt</i>
+                    </div>
+                    <div class="widget-stats-content flex-fill">
+                        <span class="widget-stats-title">Рейсов за сегодня</span>
+                        <span class="widget-stats-amount">{{ data.day_count_done }}</span>
+                    </div>
+                    <div class="widget-stats-indicator align-self-start">
+                       Конверсия - {{ data.conversion }}%
+                    </div>
+                </div>
+                <div class="widget-stats-chart">
+                    <div style="display: none" id="jsonData" data-json="{{ data.data_count }}"></div>
+                    <div id="widget-stats-chart2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Рейсов по месяцам</h5>
+            </div>
+            <div class="card-body">
+                <div style="display: none" id="jsonData1" data-json="{{ data.data_count_month }}"></div>
+                <div id="apex1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Радар закрытия</h5>
+            </div>
+            <div class="card-body">
+                <div style="display: none" id="jsonData2" data-json="{{ data.data_count_weekday }}"></div>
+                <div id="apex7"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Радар закрытия клиентов</h5>
+            </div>
+            <div class="card-body">
+                <div style="display: none" id="jsonData3" data-json="{{ data.clients_array }}"></div>
+                <div style="display: none" id="jsonData4" data-json="{{ data.total_orders }}"></div>
+                <div id="apex8"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock %}

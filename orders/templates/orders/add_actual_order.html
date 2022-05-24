@@ -1,0 +1,102 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Добавить рейс
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">view_list</i>Добавить рейс</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="col-md-2">
+        <label for="inputMask1" class="form-label">Дата рейса</label>
+        {{form.date}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_status" class="form-label">Статус</label>
+        {{form.status}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_client" class="form-label">Клиент</label>
+        {{form.client}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_order_number" class="form-label">Номер заявки(клиент)</label>
+        {{form.order_number}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_sale_manager" class="form-label">Клиентский менеджер</label>
+        {{form.sale_manager}}
+    </div>
+    <div class="col-md-4">
+        <label for="input_drop_on" class="form-label">Точка погрузки</label>
+        {{form.drop_on}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_date_on" class="form-label">Тайм-слот погрузки</label>
+        {{form.date_on}}
+    </div>
+    <div class="col-md-4">
+        <label for="input_drop_on_plus" class="form-label">Доп.точка погрузки</label>
+        {{form.drop_on_plus}}
+    </div>
+    <!-- <div class="col-md-2">
+        <label for="input_date_on_plus" class="form-label">Тайм-слот погрузки</label>
+        {{form.date_on_plus}}
+    </div> -->
+
+
+    <div class="col-md-4">
+        <label for="input_drop_off" class="form-label">Точка выгрузки</label>
+        {{form.drop_off}}
+    </div>
+    
+    <div class="col-md-2">
+        <label for="input_date_off" class="form-label">Тайм-слот выгрузки</label>
+        {{form.date_off}}
+    </div>
+
+    <div class="col-md-4">
+        <label for="input_drop_off_plus" class="form-label">Доп.точка выгрузки</label>
+        {{form.drop_off_plus}}
+    </div>
+    <!-- <div class="col-md-2">
+        <label for="input_date_off_plus" class="form-label">Тайм-слот выгрузки</label>
+        {{form.date_off_plus}}
+    </div> -->
+
+    <div class="col-md-3">
+        <label for="input_cargo" class="form-label">Груз</label>
+        {{form.cargo}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_pallet" class="form-label">Кол-во паллет</label>
+        {{form.pallet}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_required_type" class="form-label">Тип транспорта</label>
+        {{form.required_type}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_required_info" class="form-label">Доп.требования</label>
+        {{form.required_info}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_client_cost" class="form-label">Ставка клиента</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">₽</span>
+            {{form.client_cost}}
+            <span class="input-group-text">с НДС</span>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+{{object.truck_number}}
+{% endblock %}
+
+{% block description %}
+<div class="card widget widget-payment-request">
+    <div class="card-header">
+        <h5 class="card-title">{{object.truck_number}}<span class="badge"><i class="material-icons-two-tone">local_shipping</i></span></h5>
+    </div>
+    <div class="card-body">
+        <div class="widget-payment-request-container">
+            <div class="widget-payment-request-info m-t-md">
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Номер прицепа</span>
+                    <span class="text-muted d-block">{{object.trailer_number}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Тип транспорта</span>
+                    <span class="text-muted d-block">{{object.capacity}}, {{object.type}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Марка</span>
+                    <span class="text-muted d-block">{{object.brand}}</span>
+                </div>
+				<div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">ВИН номер</span>
+                    <span class="text-muted d-block">{{object.vin_number}}</span>
+                </div>
+				<div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Собственник</span>
+                    <span class="text-muted d-block">{{object.owner}}</span>
+                </div>
+            </div>
+            <div class="widget-payment-request-actions m-t-md d-flex">
+                <a href="{% url 'trucks-update' object.id %}" class="btn btn-warning flex-grow-1 m-r-xxs"><i class="material-icons">edit</i>Редактировать</a>
+                <a href="{% url 'trucks-delete' object.id %}" class="btn btn-danger flex-grow-1 m-l-xxs"><i class="material-icons">delete_outline</i>Удалить</a>
+                <a href="{% url 'trucks' %}" class="btn btn-primary flex-grow-1 m-l-xxs"><i class="material-icons">arrow_back</i>Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

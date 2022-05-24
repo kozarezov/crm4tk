@@ -1,0 +1,62 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Отчет СберФрахт
+{% endblock %}
+
+{% block description %}
+<h2>Отчет СберФрахт</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table id="datatable3" class="display nowrap table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Территория</th>  
+                    <th>Дата запроса</th>
+                    <th>Дата ответа логиста</th> 
+                    <th>Дата ответа клиента</th>
+                    <th>Аккаунт</th>
+                    <th>Логист</th>
+                    <th>Клиент</th>
+                    <th>город подачи</th>
+                    <th>город доставки</th>
+                    <th>Дата подачи</th>
+                    <th>грузоподъемность</th>
+                    <th>полезный объем</th>
+                    <th>тип</th>
+                    <th>Тип заявки</th>
+                    <th>Статус</th>
+                    <th>причина</th>
+                    <th>комментарии</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in all_orders %}
+                    <tr>
+                        <td>ЮЗТБ</td>
+                        <td>{{ el.date|date:'d.m.Y' }}</td>
+                        <td>{{ el.date|date:'d.m.Y' }}</td>
+                        <td>{{ el.date|date:'d.m.Y' }}</td>
+                        <td>{{ el.sale_manager }}</td>
+						<td>{{ el.logist }}</td>
+						<td>{{ el.client }}</td>
+						<td>{{ el.drop_on.city }}</td>
+						<td>{{ el.drop_off.city }}</td>
+						<td>{{ el.date_on|date:'d.m.Y H:i' }}</td>
+						<td>20</td>
+						<td>80-90</td>
+						<td>{{ el.required_type }}</td>
+						<td>спот</td>
+						<td>{{ el.sberfraht_status }}</td>
+						<td>{{ el.sberfraht_status_1 }}</td>
+						<td>{{ el.sberfraht_status_2 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

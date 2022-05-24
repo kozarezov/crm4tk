@@ -1,0 +1,231 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Рейс №{{object.order.id}}
+{% endblock %}
+
+{% block description %}
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card widget widget-payment-request">
+            <div class="card-header">
+                <h5 class="card-title">Рейс №{{object.order.id}}<span class="badge"><i class="material-icons-two-tone">done_outline</i></span></h5>
+            </div>
+            <div class="card-body">
+                <div class="widget-payment-request-container">
+                    <div class="widget-payment-request-info m-t-md">
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Дата рейса</span>
+                            <span class="text-muted d-block">{{object.order.date}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Откуда</span>
+                            <span class="text-muted d-block">{{object.order.drop_on}}
+                                {% if object.order.drop_on_plus %}
+                                    / {{ object.order.drop_on_plus }}
+                                {% endif %}
+                            , {{object.order.date_on}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Куда</span>
+                            <span class="text-muted d-block">{{object.order.drop_off}}
+                                {% if object.order.drop_off_plus %}
+                                    / {{ object.order.drop_off_plus }}
+                                {% endif %}
+                                , {{object.order.date_off}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Клиент</span>
+                            <span class="text-muted d-block">{{object.order.client}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Заявка клиента</span>
+                            <span class="text-muted d-block">{{object.order.order_number}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Груз</span>
+                            <span class="text-muted d-block">{{object.order.cargo}}, {{object.order.pallet}} паллет</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Требуемый тип транспорта</span>
+                            <span class="text-muted d-block">{{object.order.required_type}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Ставка клиента</span>
+                            <span class="text-muted d-block">{{object.order.client_cost}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Клиентский менеджер</span>
+                            <span class="text-muted d-block">{{object.order.sale_manager}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Перевозчик</span>
+                            <span class="text-muted d-block">{{object.order.subclient}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Машина, водитель</span>
+                            <span class="text-muted d-block">{{object.order.truck}}, {{object.order.driver}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Ставка перевозчику</span>
+                            <span class="text-muted d-block">{{object.order.subclient_cost}}</span>
+                        </div>
+                        <div class="widget-payment-request-info-item">
+                            <span class="widget-payment-request-info-title d-block">Логист</span>
+                            <span class="text-muted d-block">{{object.order.logist}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card widget widget-files">
+            <div class="card-header">
+                <h5 class="card-title">Файлы к рейсу</h5>
+            </div>
+            <div class="card-body">
+                <div class="widget-files-continer">
+                    <ul class="widget-files-list list-unstyled">
+                        {% if object.subclient_document or object.ttn_document %}
+                            {% if object.subclient_document %}
+                            <li class="widget-files-list-item">
+                                <span class="widget-files-list-item-icon">
+                                    <i class="material-icons-outlined">insert_drive_file</i>
+                                </span>
+                                <span class="widget-files-list-item-content">
+                                    <span class="widget-files-list-item-title">Заявка с перевозчиком</span>
+                                    <span class="widget-files-list-item-size">{{object.subclient_document.name}}</span>
+                                </span>
+                                <a href="{{ object.subclient_document.url }}" class="widget-files-list-item-download-btn">
+                                    <i class="material-icons-outlined">
+                                        download
+                                    </i>
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% if object.ttn_document %}
+                                <li class="widget-files-list-item">
+                                    <span class="widget-files-list-item-icon">
+                                        <i class="material-icons-outlined">insert_drive_file</i>
+                                    </span>
+                                    <span class="widget-files-list-item-content">
+                                        <span class="widget-files-list-item-title">ТН по рейсу</span>
+                                        <span class="widget-files-list-item-size">{{object.ttn_document.name}}</span>
+                                    </span>
+                                    <a href="{{ object.ttn_document.url }}" class="widget-files-list-item-download-btn">
+                                        <i class="material-icons-outlined">
+                                            download
+                                        </i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <span> Документы не прикреплены </span>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card widget widget-files">
+            <div class="card-header">
+                <h5 class="card-title">Прикрепить файлы</h5>
+            </div>
+            <div class="card-body">
+                <div class="widget-files-continer">
+                    <ul class="widget-files-list list-unstyled">
+                        <form method="post" class="md-form" enctype="multipart/form-data" id="myform">
+                            {% csrf_token %}
+                            <li class="widget-files-list-item">
+                                <span class="widget-files-list-item-icon">
+                                    <i class="material-icons-outlined">insert_drive_file</i>
+                                </span>
+                                <span class="widget-files-list-item-content">
+                                    {{ form.subclient_document }}
+                                </span>
+                                <a href="#" type="submit" onclick="document.forms['myform'].submit();" class="widget-files-list-item-download-btn">
+                                    <i class="material-icons-outlined">
+                                        upload
+                                    </i>
+                                </a>
+                            </li>
+                            <li class="widget-files-list-item">
+                                <span class="widget-files-list-item-icon">
+                                    <i class="material-icons-outlined">insert_drive_file</i>
+                                </span>
+                                <span class="widget-files-list-item-content">
+                                    {{ form.ttn_document }}
+                                </span>
+                                <a href="#" type="submit" onclick="document.forms['myform'].submit();" class="widget-files-list-item-download-btn">
+                                    <i class="material-icons-outlined">
+                                        upload
+                                    </i>
+                                </a>
+                            </li>
+
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card widget widget-payment-request">
+                <div class="card-header">
+                    <h5 class="card-title">Данные диспетчера<span class="badge"><i class="material-icons-two-tone">done_outline</i></span></h5>
+                </div>
+                <div class="card-body">
+                    <div class="widget-payment-request-container">
+                        <div class="widget-payment-request-info m-t-md">
+                            <div class="widget-payment-request-info-item">
+                                <span class="widget-payment-request-info-title d-block">Текущий cтатус</span>
+                                <span class="text-muted d-block">{{object.order.status_dispatcher}}</span>
+                            </div>
+                            <div class="widget-payment-request-info-item">
+                                <span class="widget-payment-request-info-title d-block">Факт время загрузки</span>
+                                <span class="text-muted d-block">{{object.order.date_on_fact}}</span>
+                            </div>
+                            <div class="widget-payment-request-info-item">
+                                <span class="widget-payment-request-info-title d-block">Факт время выгрузки</span>
+                                <span class="text-muted d-block">{{object.order.date_off_fact}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card widget widget-payment-request">
+                <div class="card-header">
+                    <h5 class="card-title">Данные по документообороту<span class="badge"><i class="material-icons-two-tone">done_outline</i></span></h5>
+                </div>
+                <div class="card-body">
+                    <div class="widget-payment-request-container">
+                        <div class="widget-payment-request-info m-t-md">
+                            <div class="widget-payment-request-info-item">
+                                <span class="widget-payment-request-info-title d-block">Дата получения документов</span>
+                                {% if object.date %}
+                                    <span class="text-muted d-block">{{object.date}}</span>
+                                {% else %}
+                                    <span class="text-muted d-block">Документы не получены</span>
+                                {% endif %}
+                            </div>
+                            <div class="widget-payment-request-info-item">
+                                <span class="widget-payment-request-info-title d-block">Текущий статус</span>
+                                <span class="text-muted d-block">{{object.status}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="widget-payment-request-actions m-t-md d-flex">
+    <a href="{% url 'orders-document' object.order.id %}" class="btn btn-success flex-grow-1 m-r-xxs" title = "Сформировать заявку"><i class="material-icons">picture_as_pdf</i>Сформировать заявку</a>
+    <a href="{% url 'orders-update' object.order.id %}" class="btn btn-warning flex-grow-1 m-r-xxs"><i class="material-icons">edit</i>Редактировать</a>
+    <a href="{% url 'orders-delete' object.order.id %}" class="btn btn-danger flex-grow-1 m-r-xxs"><i class="material-icons">delete_outline</i>Удалить</a>
+    <a href="{% url 'orders' %}" class="btn btn-primary flex-grow-1 m-r-xxs"><i class="material-icons">arrow_back</i>Назад</a>
+</div>
+
+{% endblock %}

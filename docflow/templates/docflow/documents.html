@@ -1,0 +1,98 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Документооборот
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">find_in_page</i> Документооборот</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive" style="overflow:auto;">
+            <table id="datatable5" class="display nowrap table-hover" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>id &nbsp;</th>
+                        <th>Статус</th>
+                        <th>Перевозчик</th>
+                        <th>Клиент</th>
+                        <th>Точка погрузки</th>
+                        <th>Точка выгрузки</th>
+                        <th>Водитель</th>
+                        <th>Машина</th>
+                        <th>Ставка Клиент  &nbsp;</th>
+                        <th>Ставка Перевоз с НДС  &nbsp;</th>
+                        <th>Ставка Перевоз без НДС  &nbsp;</th>
+                        <th>Дата погрузки</th>
+                        <th>Дата выгрузки</th>
+                        <th>Логист</th>
+                        <th>Элементы управления</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for el in all_orders %}
+                        <tr>
+                            <td>{{ el.order.id }}</td>
+                            {% if el.warning %}
+                                <td><span class="badge badge-danger">{{ el.status }}</span></td>
+                            {% else %}
+                                <td><span class="badge badge-info">{{ el.status }}</span></td>
+                            {% endif %}
+                            <td>{{ el.order.subclient}}</td>
+                            <td>{{ el.order.client }}</td>
+                            <td>
+                                {{ el.order.drop_on.city }}
+                                {% if el.order.drop_on_plus %}
+                                    / {{ el.order.drop_on_plus.city }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ el.order.drop_off.city }}
+                                {% if el.order.drop_off_plus %}
+                                    / {{ el.order.drop_off_plus.city }}
+                                {% endif %}
+                            </td>
+                            <td>{{ el.order.driver }}</td>
+                            <td>{{ el.order.truck }}</td>
+                            <td>{{ el.order.client_cost }}</td>
+                            <td>{{ el.order.subclient_cost }}</td>
+                            <td>{{ el.order.get_non_nds }}</td>
+                            <td>{{ el.order.date_on_fact|date:'d.m.Y H:i' }}</td>
+                            <td>{{ el.order.date_off_fact|date:'d.m.Y H:i' }}</td>
+                            <td>{{ el.order.logist }}</td>
+                            <td>
+                                <div class="btn-group" role="group" aria-label="contol">
+                                    <div class="btn-group dropdown">
+                                        <a href="#" type="button" class="btn btn-light btn-style-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="material-icons">view_list</i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="{% url 'orders-detail' el.id %}" class="btn btn-light btn-style-light" title = "Открыть"><i class="material-icons">visibility</i></a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'docflow-update' el.id %}" class="btn btn-light btn-style-light" title = "Заполнить"><i class="material-icons">edit</i></a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'orders-clone' el.id %}" class="btn btn-light btn-style-light" title = "Создать по образцу"><i class="material-icons">replay</i></a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Сформировать счёт</a></li>
+                                            <li><a class="dropdown-item" href="#">Сформировать УПД</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

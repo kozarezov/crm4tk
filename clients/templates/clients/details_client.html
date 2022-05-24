@@ -1,0 +1,73 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+{{object.company_name}}
+{% endblock %}
+
+{% block description %}
+<div class="card widget widget-payment-request">
+    <div class="card-header">
+        <h5 class="card-title">{{object.company_name}}<span class="badge"><i class="material-icons-two-tone">handshake</i></span></h5>
+    </div>
+    <div class="card-body">
+        <div class="widget-payment-request-container">
+            <div class="widget-payment-request-info m-t-md">
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Договор</span>
+                    <span class="text-muted d-block">{{object.contract_data}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Юридический адрес</span>
+                    <span class="text-muted d-block">{{object.juridical_address}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Фактический адрес</span>
+                    <span class="text-muted d-block">{{object.post_address}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">ИНН/КПП/ОГРН</span>
+                    <span class="text-muted d-block">{{object.inn}}/{{object.kpp}}/{{object.ogrn}}</span>
+                </div>
+				<div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Наименовение банка/БИК/Корреспондентский счет/Рассчетный счет</span>
+                    <span class="text-muted d-block">{{object.bank_name}}/{{object.bik}}/{{object.correspondent_score}}/{{object.payment_score}}</span>
+                </div>
+				<div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Электронная почта</span>
+                    <span class="text-muted d-block">{{object.email}}</span>
+                </div>
+				<div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Контактное лицо</span>
+                    <span class="text-muted d-block">{{object.contact_person}}, {{object.phone}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Является клиентом</span>
+                    <span class="text-muted d-block">
+                        {% if object.client_bool %}
+                            <i class="material-icons-two-tone">done</i>
+                        {% else %}
+                            <i class="material-icons-two-tone">close</i>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Является перевозчиком</span>
+                    <span class="text-muted d-block">
+                        {% if object.subclient_bool %}
+                            <i class="material-icons-two-tone">done</i>
+                        {% else %}
+                            <i class="material-icons-two-tone">close</i>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="widget-payment-request-actions m-t-md d-flex">
+                <a href="{% url 'clients-update' object.id %}" class="btn btn-warning flex-grow-1 m-r-xxs"><i class="material-icons">edit</i>Редактировать</a>
+                <a href="{% url 'clients-delete' object.id %}" class="btn btn-danger flex-grow-1 m-l-xxs"><i class="material-icons">delete_outline</i>Удалить</a>
+                <a href="{% url 'clients' %}" class="btn btn-primary flex-grow-1 m-l-xxs"><i class="material-icons">arrow_back</i>Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

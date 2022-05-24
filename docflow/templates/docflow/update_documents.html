@@ -1,0 +1,74 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Документооборот
+{% endblock %}
+
+{% block description %}
+<h2>Заполнить данные по рейсу №{{ object.id }}</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="display nowrap" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>id &nbsp;</th>
+                    <th>Точка погрузки</th>
+                    <th>Точка выгрузки</th>
+                    <th>Дата погрузки</th>
+                    <th>Дата выгрузки</th>
+                    <th>Клиент</th>
+					<th>Перевоз</th>
+                    <th>Ставка Клиент  &nbsp;</th>
+					<th>Ставка Перевоз  &nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.order.id }}</td>
+                    <td>{{ object.order.drop_on.city }}</td>
+                    <td>{{ object.order.drop_off.city }}</td>
+                    <td>{{ object.order.date_on_fact|date:'d.m.Y H:i' }}</td>
+                    <td>{{ object.order.date_off_fact|date:'d.m.Y H:i' }}</td>
+                    <td>{{ object.order.client }}</td>
+					<td>{{ object.order.subclient }}</td>
+                    <td>{{ object.order.client_cost }}</td>
+					<td>{{ object.order.subclient_cost }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form method="post" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-2">
+        <label for="inputMask1" class="form-label">Дата получения документов</label>
+        {{form.date}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_status" class="form-label">Статус документооборота</label>
+        {{form.status}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_manager_do" class="form-label">Ответственный специалист</label>
+        {{form.manager_do}}
+    </div>
+    <div class="col-md-5">
+        <label for="input_account_number" class="form-label">Номер счета</label>
+        {{form.account_number}}
+    </div>
+    <div class="col-md-12">
+        <label for="input_comment" class="form-label">Комментарий</label>
+        {{form.comment}}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

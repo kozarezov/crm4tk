@@ -1,0 +1,49 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Добавить машину
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">local_shipping</i>Добавить машину</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="col-md-6">
+        <label for="input_truck_number" class="form-label">Номер тягача</label>
+        {{form.truck_number}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_trailer_number" class="form-label">Номер прицепа</label>
+        {{form.trailer_number}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_type" class="form-label">Тип ТС</label>
+        {{form.type}}
+    </div>
+    <div class="col-md-2">
+        <label for="input_capacity" class="form-label">Грузоподъемность</label>
+        {{form.capacity}}
+    </div>
+    <div class="col-md-4">
+        <label for="input_brand" class="form-label">Марка, модель и цвет</label>
+        {{form.brand}}
+    </div>
+    <div class="col-md-4">
+        <label for="input_vin_number" class="form-label">ВИН Номер</label>
+        {{form.vin_number}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_owner" class="form-label">Собственник</label>
+        {{form.owner}}
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

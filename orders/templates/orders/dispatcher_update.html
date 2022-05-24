@@ -1,0 +1,76 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Редактировать данные по движению ТС
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">fmd_bad</i> Редактировать данные по движению ТС</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table class="display nowrap" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>id &nbsp;</th>
+                    <th>Точка погрузки</th>
+                    <th>Точка выгрузки</th>
+                    <th>Машина</th>
+                    <th>Водитель</th>
+                    <th>Телефон</th>
+                    <th>Логист</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ object.id }}</td>
+                    <td>{{ object.drop_on }}</td>
+                    <td>{{ object.drop_off }}</td>
+                    <td>{{ object.truck }}</td>
+                    <td>{{ object.driver }}</td>
+                    <td>{{ object.driver.phone }}</td>
+                    <td>{{ object.logist }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form method="post" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-6">
+        <label for="input_date_on_fact" class="form-label">Факт время погрузки</label>
+        {{form.date_on_fact}}
+    </div>
+    <div class="col-md-6">
+        <label for="input_date_off_fact" class="form-label">Факт время выгрузки</label>
+        {{form.date_off_fact}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_status_dispatcher" class="form-label">Статус диспетчера</label>
+        {{form.status_dispatcher}}
+    </div>
+    <div class="col-md-9">
+        <label for="input_comment" class="form-label">Комментарий</label>
+        {{form.comment}}
+    </div>
+    <div class="col-md-3">
+        <label for="input_status" class="form-label">Основной статус</label>
+        {{form.status}}
+    </div>
+	<div class="col-md-12">
+        <div class="form-check form-switch">
+            {{form.problem_bool}}
+            <label class="form-check-label" for="flexSwitchCheckDefault">Есть проблема</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

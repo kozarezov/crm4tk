@@ -1,0 +1,14 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Удалить адрес
+{% endblock %}
+
+{% block description %}
+        <h1><i class="material-icons-two-tone">location_on</i>Удалить адрес {{addresses.name}}?</h1><br>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger"><i class="material-icons">delete_outline</i>Удалить</button>
+            <a href="{% url 'addresses' %}" class="btn btn-primary"><i class="material-icons">arrow_back</i>Назад</a>
+        </form>
+{% endblock %}

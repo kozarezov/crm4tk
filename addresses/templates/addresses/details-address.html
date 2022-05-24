@@ -1,0 +1,58 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+{{object.name}}
+{% endblock %}
+
+
+{% block description %}
+<div class="card widget widget-payment-request">
+    <div class="card-header">
+        <h5 class="card-title">{{object.name}}<span class="badge"><i class="material-icons-two-tone">location_on</i></span></h5>
+    </div>
+    <div class="card-body">
+        <div class="widget-payment-request-container">
+            <div class="widget-payment-request-info m-t-md">
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Адрес</span>
+                    <span class="text-muted d-block">{{object.city}}, {{object.address}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Клиент</span>
+                    <span class="text-muted d-block">{{object.client}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Контактное лицо</span>
+                    <span class="text-muted d-block">{{object.contact_person}}, {{object.phone}}</span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Является грузоотправителем</span>
+                    <span class="text-muted d-block">
+                        {% if object.drop_on %}
+                            <i class="material-icons-two-tone">done</i>
+                        {% else %}
+                            <i class="material-icons-two-tone">close</i>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="widget-payment-request-info-item">
+                    <span class="widget-payment-request-info-title d-block">Является грузополучателем</span>
+                    <span class="text-muted d-block">
+                        {% if object.drop_off %}
+                            <i class="material-icons-two-tone">done</i>
+                        {% else %}
+                            <i class="material-icons-two-tone">close</i>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            <div class="widget-payment-request-actions m-t-md d-flex">
+                <a href="{% url 'addresses-update' object.id %}" class="btn btn-warning flex-grow-1 m-r-xxs"><i class="material-icons">edit</i>Редактировать</a>
+                <a href="{% url 'addresses-delete' object.id %}" class="btn btn-danger flex-grow-1 m-l-xxs"><i class="material-icons">delete_outline</i>Удалить</a>
+                <a href="{% url 'addresses' %}" class="btn btn-primary flex-grow-1 m-l-xxs"><i class="material-icons">arrow_back</i>Назад</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

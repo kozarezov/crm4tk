@@ -1,0 +1,55 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Добавить адрес
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">location_on</i>Добавить адрес</h2>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="row g-3 needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="col-md-6">
+        <label for="inputName" class="form-label">Наименование</label>
+        {{form.name}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputCity" class="form-label">Город</label>
+        {{form.city}}
+    </div>
+    <div class="col-12">
+        <label for="inputAddress" class="form-label">Адрес</label>
+        {{form.address}}
+    </div>
+    <div class="col-md-6">
+        <label for="inputContact1" class="form-label">Контактное лицо</label>
+        {{form.contact_person}}
+    </div>
+    <div class="col-md-2">
+        <label for="inputMask3" class="form-label">Телефон</label>
+        {{form.phone}}
+    </div>
+    <div class="col-md-4">
+        <label for="inputClient" class="form-label">Клиент</label>
+        {{form.client}}
+    </div>
+    <div class="col-12">
+        <div class="form-check form-switch">
+            {{form.drop_on}}
+            <label class="form-check-label" for="flexSwitchCheckDefault">Является грузоотправителем</label>
+        </div>
+        <div class="form-check form-switch">
+            {{form.drop_off}}
+            <label class="form-check-label" for="flexSwitchCheckDefault1">Является грузополучателем</label>
+        </div>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary"><i class="material-icons">add</i>Сохранить</button>
+    </div>
+    <span>{{ form.error }}</span>
+</form>
+
+
+{% endblock %}

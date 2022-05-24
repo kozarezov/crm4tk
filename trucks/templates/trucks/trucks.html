@@ -1,0 +1,48 @@
+{% extends 'my_crm/menu.html' %}
+
+{% block title %}
+Машины
+{% endblock %}
+
+{% block description %}
+<h2><i class="material-icons-two-tone">local_shipping</i>Машины</h2>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <table id="datatable3" class="display nowrap table-hover" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th>Номер тягача</th>
+                    <th>Номер прицепа</th>
+                    <th>Марка</th>
+                    <th>Тип ТС</th>
+                    <th>Собственник</th>
+                    <th>Элементы управления</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in all_trucks %}
+                    <tr>
+                        <td>{{ el.truck_number }}</td>
+                        <td>{{ el.trailer_number }}</td>
+                        <td>{{ el.brand }}</td>
+                        <td>{{ el.capacity }} {{ el.type }}</td>
+                        <td>{{ el.owner }}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="contol">
+                                <a href="{% url 'trucks-detail' el.id %}" class="btn btn-light btn-style-light" title = "Открыть"><i class="material-icons">visibility</i></a>
+                                <a href="{% url 'trucks-update' el.id %}" class="btn btn-light btn-style-light" title = "Редактировать"><i class="material-icons">edit</i></a>
+                                <a href="{% url 'trucks-delete' el.id %}" class="btn btn-light btn-style-light" title = "Удалить"><i class="material-icons">delete</i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_truck' %}" class="btn btn-primary" title = "Создать"><i class="material-icons">add</i>Добавить</a>
+        <a href="{% url 'trucks-upload' %}" class="btn btn-success" title = "Создать"><i class="material-icons">upload</i>Импорт (xls)</a>
+    </div>
+</div>
+{% endblock %}
