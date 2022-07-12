@@ -138,3 +138,6 @@ dmypy.json
 # VS code
 .vscode/
 
+
+
+my_crm/config.py

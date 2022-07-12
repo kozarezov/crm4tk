@@ -2,10 +2,11 @@ from distutils.command.upload import upload
 from pathlib import Path
 import os
 import dj_database_url
+from config import SK
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-SECRET_KEY = 'django-insecure-@(_i(fek@m5s+c(jli3=82!#m8-dl(#xv=qm!3j2=)i$_%-)8#'
+SECRET_KEY = SK
 
 DEBUG = True
 
